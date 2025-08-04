@@ -68,10 +68,12 @@ const sendEmailVerificationCode = async (req, res) => {
       message: "Email sent successfully",
     });
   } catch (error) {
+    console.log("Error sending email:", error);
     return res.status(400).json({
       message: "Error sending email",
       error: error.message,
     });
+    
   }
 };
 

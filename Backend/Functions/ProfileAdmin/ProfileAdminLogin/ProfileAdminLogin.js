@@ -5,7 +5,7 @@ async function ProfileAdminLogin(req, res) {
     const { email, password } = req.body;
 
     try {
-        const sql = "SELECT * FROM admins WHERE Email = ? AND AdminRole = 'Profile'";
+        const sql = "SELECT * FROM parttime_srilanka.admins WHERE Email = ? AND AdminRole = 'Profile & Job handling'";
         connection.query(sql, [email], async (err, result) => {
             if (err) {
                 console.error("Error during login query:", err);
@@ -29,6 +29,7 @@ async function ProfileAdminLogin(req, res) {
             
             console.log(admin);
             const isPasswordCorrect = await bcrypt.compare(password, admin.Password);
+            console.log("Password match result:", isPasswordCorrect);
             if (admin.password_status === 'temporary') {
                 if (isPasswordCorrect) {
                     return res.status(309).send("Password must be changed.");
